@@ -14,10 +14,10 @@ app.use(express.json());
 // Serve static files from the current directory (for index.html, pricing.html, style.css, script.js)
 app.use(express.static(__dirname));
 
-// Serve static files from public directory inside Muaz_Wrapped
-app.use("/public", express.static(path.join(__dirname, "public")));
+// Serve static files from assets directory inside Muaz_Wrapped
+app.use("/assets", express.static(path.join(__dirname, "assets")));
 // Fallback: also serve from parent public directory if assets are there
-app.use("/public", express.static(path.join(__dirname, "../public")));
+app.use("/assets", express.static(path.join(__dirname, "../public")));
 
 // API endpoint for Chat completion proxy (loads modular Vercel handler)
 const chatApiHandler = require("./api/chat");
