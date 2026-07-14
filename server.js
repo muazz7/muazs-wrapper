@@ -19,40 +19,9 @@ app.use("/public", express.static(path.join(__dirname, "public")));
 // Fallback: also serve from parent public directory if assets are there
 app.use("/public", express.static(path.join(__dirname, "../public")));
 
-// API endpoint for Chat completion proxy
-app.post("/api/chat", async (req, res) => {
-    try {
-        const { messages } = req.body;
-
-        if (!messages || !Array.isArray(messages) || messages.length === 0) {
-            return res.status(400).json({ error: "No messages provided" });
-        }
-
-        const apiKey = process.env.GROQ_API_KEY;
-        if (!apiKey) {
-            console.warn("GROQ_API_KEY is not configured on the server.");
-            return res.status(500).json({ error: "GROQ_API_KEY not configured on the server" });
-        }
-
-        // Setup Groq client
-        const groq = new Groq({ apiKey });
-
-        // Request chat completion from Groq
-        const chatCompletion = await groq.chat.completions.create({
-            messages: messages.map((msg) => ({
-                role: msg.role,
-                content: msg.content,
-            })),
-            model: "llama-3.1-8b-instant",
-        });
-
-        const text = chatCompletion.choices[0]?.message?.content || "No response received.";
-        res.json({ text });
-    } catch (error) {
-        console.error("Server API Error:", error);
-        res.status(500).json({ error: `Failed to fetch response: ${error.message}` });
-    }
-});
+// API endpoint for Chat completion proxy (loads modular Vercel handler)
+const chatApiHandler = require("./api/chat");
+app.post("/api/chat", chatApiHandler);
 
 // For any other routes, default to index.html to allow client side routing behavior
 app.get("*", (req, res, next) => {
