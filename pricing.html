@@ -5,64 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plans & Pricing | MUAZ WRAPPED IT</title>
     <meta name="description" content="Choose the perfect plan for your AI assistance. Start free and scale as you grow.">
-    
-    <!-- Fonts: Noto Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css?v=1.1">
-
-    <!-- CDN Libraries: Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-
-    <!-- Starfield Background Canvas -->
     <canvas id="starfield" class="fixed inset-0 pointer-events-none" aria-hidden="true"></canvas>
-
-    <!-- Vignette Background Overlay -->
     <div class="vignette"></div>
 
-    <!-- Header Navigation -->
     <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="main-header">
         <div class="glass-dark mx-4 mt-4 rounded-2xl px-6 py-4">
             <div class="header-container flex items-center justify-between max-w-7xl mx-auto">
-                
-                <!-- Logo -->
                 <button class="logo-btn flex flex-col items-start cursor-pointer group" id="logo-btn">
-                    <span class="text-2xl md:text-3xl font-bold text-star-white tracking-wider group-hover:text-glow transition-all duration-300">
-                        MUAZ
-                    </span>
-                    <span class="logo-subtext font-semibold text-cosmic-gold uppercase leading-none block text-[0.35rem] tracking-[0.78em] md:text-[0.45rem] md:tracking-[0.78em]">
-                        WRAPPED IT
-                    </span>
+                    <span class="text-2xl md:text-3xl font-bold text-star-white tracking-wider group-hover:text-glow transition-all duration-300">MUAZ</span>
+                    <span class="logo-subtext font-semibold text-cosmic-gold uppercase leading-none block text-[0.35rem] tracking-[0.78em] md:text-[0.45rem] md:tracking-[0.78em]">WRAPPED IT</span>
                 </button>
-
-                <!-- Navigation Desktop Links -->
                 <nav class="desktop-nav">
-                    <div class="nav-item-glow">
-                        <button class="nav-link" data-nav="home">Home</button>
-                    </div>
-                    <div class="nav-item-glow">
-                        <button class="nav-link" data-nav="about">About</button>
-                    </div>
-                    <div class="nav-item-glow">
-                        <a href="pricing.html" class="nav-link active" data-nav="pricing">Pricing</a>
-                    </div>
-                    <div class="nav-item-glow">
-                        <button class="nav-link" data-nav="signin">Sign In</button>
-                    </div>
+                    <div class="nav-item-glow"><button class="nav-link" data-nav="home">Home</button></div>
+                    <div class="nav-item-glow"><button class="nav-link" data-nav="about">About</button></div>
+                    <div class="nav-item-glow"><a href="pricing.html" class="nav-link active" data-nav="pricing">Pricing</a></div>
+                    <div class="nav-item-glow"><button class="nav-link" data-nav="signin">Sign In</button></div>
                 </nav>
-
-                <!-- Mobile Menu Toggle Button -->
                 <button class="text-star-white p-2" id="mobile-menu-toggle" aria-label="Toggle menu">
                     <i data-lucide="menu" id="menu-icon" class="w-6 h-6"></i>
                 </button>
             </div>
-
-            <!-- Mobile Menu Dropdown -->
             <div class="mobile-menu hidden md:hidden overflow-hidden" id="mobile-menu">
                 <nav class="flex flex-col gap-2 pt-4 pb-2 border-t border-white/5 mt-3">
                     <button class="mobile-nav-link text-left py-2 font-medium" data-nav="home">Home</button>
@@ -74,64 +43,37 @@
         </div>
     </header>
 
-    <!-- Main Content Container -->
     <main class="relative z-10 flex flex-col items-center min-h-screen px-4 pt-32 pb-12">
-        
-        <!-- Pricing Hero Header -->
         <div class="text-center mb-16 header-anim">
             <h1 class="text-4xl md:text-6xl font-bold text-star-white mb-4 tracking-tight">
                 Choose Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-cosmic-gold to-cosmic-gold-light text-glow">Plan</span>
             </h1>
-            <p class="text-lg md:text-xl text-nebula-gray max-w-xl mx-auto">
-                Start free and upgrade as you grow
-            </p>
+            <p class="text-lg md:text-xl text-nebula-gray max-w-xl mx-auto">Start free and upgrade as you grow</p>
         </div>
 
-        <!-- Pricing Cards Grid -->
         <div class="pricing-grid grid md:grid-cols-3 gap-6 max-w-5xl mx-auto w-full">
-            
             <!-- Tier 1: Free -->
             <div class="pricing-card relative flex flex-col justify-between">
                 <div>
                     <h3 class="text-star-white">Free</h3>
-                    <div class="price-container">
-                        <span class="price-amount">$0</span>
-                    </div>
+                    <div class="price-container"><span class="price-amount">$0</span></div>
                     <p class="description">Get started with basic AI assistance</p>
                     <ul>
-                        <li>
-                            <i data-lucide="check" class="w-4 h-4"></i>
-                            <span>Up to 20 prompts per day</span>
-                        </li>
-                        <li>
-                            <i data-lucide="check" class="w-4 h-4"></i>
-                            <span>Basic AI responses</span>
-                        </li>
-                        <li>
-                            <i data-lucide="check" class="w-4 h-4"></i>
-                            <span>Standard response time</span>
-                        </li>
-                        <li>
-                            <i data-lucide="check" class="w-4 h-4"></i>
-                            <span>Community support</span>
-                        </li>
-                        <li>
-                            <i data-lucide="check" class="w-4 h-4"></i>
-                            <span>Access to core features</span>
-                        </li>
+                        <li><i data-lucide="check" class="w-4 h-4"></i><span>Up to 20 prompts per day</span></li>
+                        <li><i data-lucide="check" class="w-4 h-4"></i><span>Basic AI responses</span></li>
+                        <li><i data-lucide="check" class="w-4 h-4"></i><span>Standard response time</span></li>
+                        <li><i data-lucide="check" class="w-4 h-4"></i><span>Community support</span></li>
+                        <li><i data-lucide="check" class="w-4 h-4"></i><span>Access to core features</span></li>
                     </ul>
                 </div>
-                <button class="cta-btn active" onclick="window.location.href='index.html'">
-                    Get Started
-                </button>
+                <button class="cta-btn active" onclick="window.location.href='index.html'">Get Started</button>
             </div>
 
-            <!-- Tier 2: Pro (Highlight) -->
+            <!-- Tier 2: Pro -->
             <div class="pricing-card relative glow-gold flex flex-col justify-between">
                 <div class="absolute -top-3 left-1/2 -translate-x-1/2">
                     <span class="px-3 py-1 text-xs font-medium bg-cosmic-gold text-void-black rounded-full flex items-center gap-1">
-                        <i data-lucide="sparkles" class="w-3 h-3"></i>
-                        Under Development
+                        <i data-lucide="sparkles" class="w-3 h-3"></i> Under Development
                     </span>
                 </div>
                 <div>
@@ -142,43 +84,22 @@
                     </div>
                     <p class="description">Enhanced capabilities for power users</p>
                     <ul>
-                        <li>
-                            <i data-lucide="check" class="w-4 h-4"></i>
-                            <span>Unlimited prompts</span>
-                        </li>
-                        <li>
-                            <i data-lucide="check" class="w-4 h-4"></i>
-                            <span>Priority AI processing</span>
-                        </li>
-                        <li>
-                            <i data-lucide="check" class="w-4 h-4"></i>
-                            <span>Advanced context memory</span>
-                        </li>
-                        <li>
-                            <i data-lucide="check" class="w-4 h-4"></i>
-                            <span>Faster response times</span>
-                        </li>
-                        <li>
-                            <i data-lucide="check" class="w-4 h-4"></i>
-                            <span>Email support</span>
-                        </li>
-                        <li>
-                            <i data-lucide="check" class="w-4 h-4"></i>
-                            <span>Custom prompts library</span>
-                        </li>
+                        <li><i data-lucide="check" class="w-4 h-4"></i><span>Unlimited prompts</span></li>
+                        <li><i data-lucide="check" class="w-4 h-4"></i><span>Priority AI processing</span></li>
+                        <li><i data-lucide="check" class="w-4 h-4"></i><span>Advanced context memory</span></li>
+                        <li><i data-lucide="check" class="w-4 h-4"></i><span>Faster response times</span></li>
+                        <li><i data-lucide="check" class="w-4 h-4"></i><span>Email support</span></li>
+                        <li><i data-lucide="check" class="w-4 h-4"></i><span>Custom prompts library</span></li>
                     </ul>
                 </div>
-                <button class="cta-btn disabled" disabled>
-                    Coming Soon
-                </button>
+                <button class="cta-btn disabled" disabled>Coming Soon</button>
             </div>
 
             <!-- Tier 3: Max -->
             <div class="pricing-card relative flex flex-col justify-between">
                 <div class="absolute -top-3 left-1/2 -translate-x-1/2">
                     <span class="px-3 py-1 text-xs font-medium bg-cosmic-gold text-void-black rounded-full flex items-center gap-1">
-                        <i data-lucide="clock" class="w-3 h-3"></i>
-                        Coming After Pro
+                        <i data-lucide="clock" class="w-3 h-3"></i> Coming After Pro
                     </span>
                 </div>
                 <div>
@@ -189,52 +110,23 @@
                     </div>
                     <p class="description">Ultimate AI experience for professionals</p>
                     <ul>
-                        <li>
-                            <i data-lucide="check" class="w-4 h-4"></i>
-                            <span>Everything in Pro</span>
-                        </li>
-                        <li>
-                            <i data-lucide="check" class="w-4 h-4"></i>
-                            <span>API access</span>
-                        </li>
-                        <li>
-                            <i data-lucide="check" class="w-4 h-4"></i>
-                            <span>Team collaboration</span>
-                        </li>
-                        <li>
-                            <i data-lucide="check" class="w-4 h-4"></i>
-                            <span>Priority support 24/7</span>
-                        </li>
-                        <li>
-                            <i data-lucide="check" class="w-4 h-4"></i>
-                            <span>Custom AI fine-tuning</span>
-                        </li>
-                        <li>
-                            <i data-lucide="check" class="w-4 h-4"></i>
-                            <span>Advanced analytics</span>
-                        </li>
-                        <li>
-                            <i data-lucide="check" class="w-4 h-4"></i>
-                            <span>White-label options</span>
-                        </li>
+                        <li><i data-lucide="check" class="w-4 h-4"></i><span>Everything in Pro</span></li>
+                        <li><i data-lucide="check" class="w-4 h-4"></i><span>API access</span></li>
+                        <li><i data-lucide="check" class="w-4 h-4"></i><span>Team collaboration</span></li>
+                        <li><i data-lucide="check" class="w-4 h-4"></i><span>Priority support 24/7</span></li>
+                        <li><i data-lucide="check" class="w-4 h-4"></i><span>Custom AI fine-tuning</span></li>
+                        <li><i data-lucide="check" class="w-4 h-4"></i><span>Advanced analytics</span></li>
+                        <li><i data-lucide="check" class="w-4 h-4"></i><span>White-label options</span></li>
                     </ul>
                 </div>
-                <button class="cta-btn disabled" disabled>
-                    After Pro Launch
-                </button>
+                <button class="cta-btn disabled" disabled>After Pro Launch</button>
             </div>
-
         </div>
 
-        <!-- Back to Home link -->
         <div class="mt-12 footer-link-anim">
-            <a href="index.html" class="text-nebula-gray hover:text-cosmic-gold transition-colors duration-300">
-                ← Back to Home
-            </a>
+            <a href="index.html" class="text-nebula-gray hover:text-cosmic-gold transition-colors duration-300">← Back to Home</a>
         </div>
     </main>
-
-    <!-- ================= MODALS ================= -->
 
     <!-- About Modal -->
     <div class="modal-overlay hidden" id="about-modal">
@@ -253,19 +145,11 @@
                         </div>
                     </a>
                     <p class="text-star-white leading-relaxed text-sm">
-                        This is a project developed by 
-                        <a href="https://muaz.pro" target="_blank" rel="noopener noreferrer" class="text-cosmic-gold hover:text-cosmic-gold-light transition-colors duration-300 font-medium">
-                            MUAZ
-                        </a> 
-                        who is a software engineering undergrad at Daffodil International University.
+                        This is a project developed by <a href="https://muaz.pro" target="_blank" rel="noopener noreferrer" class="text-cosmic-gold hover:text-cosmic-gold-light transition-colors duration-300 font-medium">MUAZ</a> who is a software engineering undergrad at Daffodil International University.
                     </p>
                 </div>
-                <p class="leading-relaxed text-center text-sm">
-                    The project is currently in its initial stage and many more features and upgrades are coming soon. Stay tuned.
-                </p>
-                <div class="pt-2 flex justify-center">
-                    <div class="w-16 h-0.5 bg-gradient-to-r from-transparent via-cosmic-gold/50 to-transparent"></div>
-                </div>
+                <p class="leading-relaxed text-center text-sm">The project is currently in its initial stage and many more features and upgrades are coming soon. Stay tuned.</p>
+                <div class="pt-2 flex justify-center"><div class="w-16 h-0.5 bg-gradient-to-r from-transparent via-cosmic-gold/50 to-transparent"></div></div>
             </div>
         </div>
     </div>
@@ -280,9 +164,7 @@
                 </button>
             </div>
             <div class="modal-content text-center py-6">
-                <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-cosmic-gold/10 flex items-center justify-center">
-                    <i data-lucide="clock" class="w-8 h-8 text-cosmic-gold"></i>
-                </div>
+                <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-cosmic-gold/10 flex items-center justify-center"><i data-lucide="clock" class="w-8 h-8 text-cosmic-gold"></i></div>
                 <p class="text-star-white text-lg font-medium mb-2">Coming Soon</p>
                 <p class="text-nebula-gray">Account and History options are coming soon.</p>
             </div>
@@ -299,17 +181,10 @@
                 </button>
             </div>
             <div class="modal-content space-y-4">
-                <p class="text-sm text-nebula-gray">
-                    Configure a client-side API Key if you want to bypass the server proxy or run this application as a completely standalone static HTML page.
-                </p>
+                <p class="text-sm text-nebula-gray">Configure a client-side API Key if you want to bypass the server proxy or run this application as a completely standalone static HTML page.</p>
                 <div class="space-y-2">
                     <label for="local-api-key" class="block text-xs font-semibold uppercase tracking-wider text-cosmic-gold">Groq API Key</label>
-                    <input 
-                        type="password" 
-                        id="local-api-key" 
-                        placeholder="gsk_..." 
-                        class="w-full px-4 py-2.5 rounded-xl bg-midnight-blue border border-white/10 text-star-white placeholder-nebula-gray outline-none focus:border-cosmic-gold/50 transition-colors"
-                    >
+                    <input type="password" id="local-api-key" placeholder="gsk_..." class="w-full px-4 py-2.5 rounded-xl bg-midnight-blue border border-white/10 text-star-white placeholder-nebula-gray outline-none focus:border-cosmic-gold/50 transition-colors">
                 </div>
                 <div class="pt-4 flex justify-end gap-3">
                     <button id="clear-api-key-btn" class="px-4 py-2 rounded-xl text-sm font-medium border border-white/10 text-nebula-gray hover:text-star-white transition-colors">Clear Key</button>
@@ -319,7 +194,6 @@
         </div>
     </div>
 
-    <!-- Custom Script -->
     <script src="script.js"></script>
 </body>
 </html>
