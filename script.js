@@ -177,28 +177,31 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    /* 4. Local Settings (Groq API Key) */
+    /* 4. Local Settings (Groq API Key & Model) */
     const apiKeyInput = document.getElementById("local-api-key");
+    const modelInput = document.getElementById("local-model");
     const saveSettingsBtn = document.getElementById("save-settings-btn");
     const clearApiKeyBtn = document.getElementById("clear-api-key-btn");
 
     if (apiKeyInput) apiKeyInput.value = localStorage.getItem("groq_api_key") || "";
+    if (modelInput) modelInput.value = localStorage.getItem("groq_model") || "";
 
     saveSettingsBtn?.addEventListener("click", () => {
         const key = apiKeyInput?.value.trim();
-        if (key) {
-            localStorage.setItem("groq_api_key", key);
-            alert("API Key saved to browser storage!");
-        } else {
-            localStorage.removeItem("groq_api_key");
-            alert("Empty key cleared.");
-        }
+        const mdl = modelInput?.value.trim();
+        if (key) localStorage.setItem("groq_api_key", key);
+        else localStorage.removeItem("groq_api_key");
+        if (mdl) localStorage.setItem("groq_model", mdl);
+        else localStorage.removeItem("groq_model");
+        alert("Settings saved!");
         closeModal(modals.settings);
     });
 
     clearApiKeyBtn?.addEventListener("click", () => {
         if (apiKeyInput) apiKeyInput.value = "";
+        if (modelInput) modelInput.value = "";
         localStorage.removeItem("groq_api_key");
+        localStorage.removeItem("groq_model");
         alert("API Key cleared.");
         closeModal(modals.settings);
     });
@@ -322,21 +325,77 @@ document.addEventListener("DOMContentLoaded", () => {
 
         try {
             const savedKey = localStorage.getItem("groq_api_key");
-            const res = savedKey
-                ? await fetch("https://api.groq.com/openai/v1/chat/completions", {
-                      method: "POST",
-                      headers: { "Content-Type": "application/json", Authorization: `Bearer ${savedKey}` },
-                      body: JSON.stringify({ model: "llama-3.1-8b-instant", messages: messagesList })
-                  })
-                : await fetch("/api/chat", {
-                      method: "POST",
-                      headers: { "Content-Type": "application/json" },
-                      body: JSON.stringify({ messages: messagesList })
-                  });
+            const customModel = localStorage.getItem("groq_model");
+            let reply = "";
 
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.error?.message || data.error || `Error: ${res.status}`);
-            const reply = (savedKey ? data.choices[0]?.message?.content : data.text) || "No response received.";
+            if (savedKey) {
+                const isGroq = savedKey.startsWith("gsk_");
+                if (isGroq) {
+                    const modelsToTry = [customModel, "openai/gpt-oss-20b", "qwen/qwen3-32b", "llama-3.3-70b-versatile"].filter(Boolean).filter((v, i, a) => a.indexOf(v) === i);
+                    let lastErr = null;
+                    for (const m of modelsToTry) {
+                        try {
+                            const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json", Authorization: `Bearer ${savedKey}` },
+                                body: JSON.stringify({ model: m, messages: messagesList })
+                            });
+                            const data = await res.json();
+                            if (!res.ok) {
+                                const msg = data.error?.message || `Error: ${res.status}`;
+                                if (msg.includes("model_not_found") || msg.includes("does not exist")) {
+                                    lastErr = new Error(msg);
+                                    continue;
+                                }
+                                throw new Error(msg);
+                            }
+                            reply = data.choices[0]?.message?.content || "No response received.";
+                            break;
+                        } catch (err) {
+                            lastErr = err;
+                            if (!err.message?.includes("model_not_found") && !err.message?.includes("does not exist")) throw err;
+                        }
+                    }
+                    if (!reply && lastErr) throw lastErr;
+                } else {
+                    // Google Gemini API client-side
+                    const geminiModels = [customModel, "gemini-3.7-flash", "gemini-3.6-flash", "gemini-flash-latest"].filter(Boolean);
+                    const contents = messagesList.map(({ role, content }) => ({
+                        role: role === "assistant" ? "model" : "user",
+                        parts: [{ text: content }]
+                    }));
+                    let lastErr = null;
+                    for (const m of geminiModels) {
+                        const cleanModel = m.startsWith("models/") ? m.slice(7) : m;
+                        try {
+                            const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${cleanModel}:generateContent?key=${savedKey}`, {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({ contents })
+                            });
+                            const data = await res.json();
+                            if (!res.ok) {
+                                lastErr = new Error(data.error?.message || `Gemini Error: ${res.status}`);
+                                continue;
+                            }
+                            reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                            if (reply) break;
+                        } catch (err) {
+                            lastErr = err;
+                        }
+                    }
+                    if (!reply && lastErr) throw lastErr;
+                }
+            } else {
+                const res = await fetch("/api/chat", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ messages: messagesList, model: customModel })
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error?.message || data.error || `Error: ${res.status}`);
+                reply = data.text || "No response received.";
+            }
 
             thinkingIndicator?.classList.add("hidden");
             messagesList.push({ role: "assistant", content: reply });
